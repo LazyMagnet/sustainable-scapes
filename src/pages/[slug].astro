@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StrataDivider from '../components/StrataDivider.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import LocationSection from '../components/LocationSection.astro';
+import { SERVICES } from '../lib/services-data';
+import { SITE } from '../lib/site';
+import { bp } from '../lib/url';
+
+export function getStaticPaths() {
+  return Object.values(SERVICES).map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const s = SERVICES[slug as string];
+const canonical = `${SITE.domain}/${s.slug}`;
+const siblings = Object.values(SERVICES).filter((x) => x.slug !== s.slug).slice(0, 3);
+
+const schemaJson = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `${s.label} in Gisborne`,
+    provider: { '@id': `${SITE.domain}/#business` },
+    areaServed: { '@type': 'AdministrativeArea', name: 'Gisborne District' },
+    description: s.metaDescription,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.domain },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE.domain}/services` },
+      { '@type': 'ListItem', position: 3, name: s.label, item: canonical },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: s.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<Layout title={s.metaTitle} description={s.metaDescription} canonical={canonical} keywords={s.keywords} primaryKeyword={s.primaryKeyword} schemaJson={schemaJson}>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-ss-ink">
+    <div class="absolute inset-0">
+      <img src={s.heroImage} alt={`${s.label} in Gisborne by Sustainable Scapes`} class="w-full h-full object-cover" style="object-position: center;" />
+      <div class="absolute inset-0 bg-gradient-to-r from-ss-ink from-20% via-ss-ink/85 via-60% to-ss-ink/40"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 py-20 md:py-28">
+      <div class="max-w-xl">
+        <p class="eyebrow mb-4 text-ss-ochre">{s.eyebrow} · Gisborne</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-5">{s.h1}</h1>
+        <p class="text-lg text-white/90 mb-8 leading-relaxed">{s.intro}</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href={bp('/contact')} class="btn-primary">Request a quote</a>
+          <a href={`tel:${SITE.phoneTel}`} class="inline-flex items-center justify-center px-7 py-3.5 bg-white/10 backdrop-blur text-white font-bold rounded-lg border-2 border-white/30 hover:bg-white/20 transition">Or call {SITE.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#1C2A16" fillTo="#FFFFFF" line={true} />
+
+  <!-- TRUST STRIP -->
+  <section class="bg-white py-7 border-b border-stone-100">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">Local</p><p class="text-sm text-slate-600 mt-1">Gisborne based</p></div>
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">End-to-end</p><p class="text-sm text-slate-600 mt-1">Prep to planting</p></div>
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">Sustainable</p><p class="text-sm text-slate-600 mt-1">Low-maintenance</p></div>
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">Reliable</p><p class="text-sm text-slate-600 mt-1">Done properly</p></div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 space-y-10">
+      {s.body.map((b) => (
+        <div>
+          <h2 class="text-2xl md:text-3xl mb-3">{b.heading}</h2>
+          <p class="text-lg text-slate-700 leading-relaxed">{b.text}</p>
+        </div>
+      ))}
+      <div class="bg-ss-stone border border-stone-200 rounded-2xl p-6">
+        <p class="text-slate-700 leading-relaxed">This is one part of what we do. See the full range on our <a href={bp('/services')} class="text-ss-forest font-bold hover:text-ss-forest-dark">landscaping services in Gisborne</a>, or browse <a href={bp('/our-work')} class="text-ss-forest font-bold hover:text-ss-forest-dark">recent projects</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#FFFFFF" fillTo="#F6F4EE" />
+
+  <!-- FEATURES -->
+  <section class="bg-ss-stone py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12 max-w-2xl mx-auto">
+        <p class="eyebrow mb-2">What you get</p>
+        <h2 class="text-3xl md:text-4xl">{`${s.label}, done properly`}</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5">
+        {s.features.map((f) => (
+          <div class="bg-white border border-stone-200 rounded-2xl p-6 hover:border-ss-forest hover:shadow-md transition-all">
+            <h3 class="text-lg mb-2 leading-snug">{f.name}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#F6F4EE" fillTo="#FFFFFF" />
+
+  <!-- FAQ -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl mb-8 text-center">Common questions</h2>
+      <div class="space-y-3">
+        {s.faqs.map((f) => (
+          <details class="bg-ss-stone rounded-2xl border border-stone-200 group">
+            <summary class="cursor-pointer px-6 py-5 font-bold text-ss-ink list-none flex justify-between items-center">
+              <span class="pr-4">{f.q}</span>
+              <span class="text-ss-ochre group-open:rotate-45 transition-transform text-3xl font-light leading-none shrink-0">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-700 leading-relaxed">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED: pillar + siblings -->
+  <section class="bg-ss-stone py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-10 max-w-2xl mx-auto">
+        <p class="eyebrow mb-2">More of what we do</p>
+        <h2 class="text-3xl md:text-4xl mb-3">Other landscaping services</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href={bp('/services')} class="group bg-ss-forest text-white rounded-2xl p-5 hover:shadow-xl transition-all flex flex-col">
+          <h3 class="text-lg mb-2 leading-snug text-white">All our services</h3>
+          <p class="text-sm text-white/80 leading-relaxed flex-1">The full range of landscaping and site solutions in Gisborne.</p>
+          <span class="text-white font-bold text-sm mt-3" style="color:#E8C9A0;">View services →</span>
+        </a>
+        {siblings.map((sib) => (
+          <a href={bp(`/${sib.slug}`)} class="group bg-white border border-stone-200 rounded-2xl p-5 hover:border-ss-forest hover:shadow-xl transition-all flex flex-col">
+            <h3 class="text-lg mb-2 leading-snug group-hover:text-ss-forest transition-colors">{sib.label}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1">{sib.navLabel}</p>
+            <span class="text-ss-forest font-bold text-sm mt-3">Learn about {sib.navLabel} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactForm sourcePage={s.slug} />
+
+  <FinalCTA />
+
+  <LocationSection />
+</Layout>

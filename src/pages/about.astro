@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StrataDivider from '../components/StrataDivider.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { SITE, PHOTOS } from '../lib/site';
+import { bp } from '../lib/url';
+
+const title = 'About Sustainable Scapes | Landscaping Gisborne';
+const description = 'Sustainable Scapes is a Gisborne landscaping company built on doing things properly: practical, end-to-end outdoor solutions for homes, businesses and developments.';
+const canonical = `${SITE.domain}/about`;
+---
+
+<Layout title={title} description={description} canonical={canonical} keywords="about sustainable scapes, landscaping company gisborne">
+  <section class="relative overflow-hidden bg-ss-ink">
+    <div class="absolute inset-0">
+      <img src={PHOTOS.gallery[1]} alt="Sustainable Scapes landscaping work in Gisborne" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-ss-ink from-20% via-ss-ink/85 to-ss-ink/40"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 py-20 md:py-28">
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-4 text-ss-ochre">About us</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-5">Building landscapes that work, for people and place</h1>
+        <p class="text-lg text-white/90 leading-relaxed">Sustainable Scapes was founded to create outdoor spaces that are not just good-looking, but practical, durable and built to perform over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#1C2A16" fillTo="#FFFFFF" line={true} />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 space-y-10">
+      <div>
+        <h2 class="text-2xl md:text-3xl mb-3">Sustainability, done practically</h2>
+        <p class="text-lg text-slate-700 leading-relaxed">Sustainable Scapes is a Gisborne-based landscaping company providing site clearing, planting, paving, construction and maintenance. We deliver practical, sustainable landscaping built for local conditions, across residential, commercial and development projects. For us, sustainable does not mean complicated. It means low-maintenance planting, durable construction, and outdoor spaces that keep working long after we have left.</p>
+      </div>
+      <div>
+        <h2 class="text-2xl md:text-3xl mb-3">Our approach</h2>
+        <p class="text-lg text-slate-700 leading-relaxed">Rather than treating each stage as a separate job, we look at the full picture, from site preparation through to final planting and long-term maintenance. Handling the whole job as one coordinated team lets us deliver efficient outcomes and avoid the delays and rework that come from too many handovers. The plan that is agreed is the plan that gets built.</p>
+      </div>
+      <div>
+        <h2 class="text-2xl md:text-3xl mb-3">Who we work with</h2>
+        <p class="text-lg text-slate-700 leading-relaxed">We work with homeowners, businesses and developers across Gisborne. Whether it is improving a residential outdoor space, maintaining a commercial property, or preparing a site for development, we provide reliable, coordinated services from start to finish, and clear communication the whole way through.</p>
+      </div>
+      <div>
+        <h2 class="text-2xl md:text-3xl mb-3">Our story</h2>
+        <p class="text-lg text-slate-700 leading-relaxed">Sustainable Scapes was built on a passion for the land and a commitment to doing things properly. What began as a focus on creating better outdoor environments has grown into a trusted local business known for reliability, craftsmanship and practical solutions. The core philosophy has not changed: deliver work that stands the test of time and adds real value to the spaces we work on. Today we work across a wide range of projects throughout Gisborne, from residential gardens to larger site preparation and development.</p>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#FFFFFF" fillTo="#F6F4EE" />
+
+  <section class="bg-ss-stone py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-10 max-w-2xl mx-auto">
+        <p class="eyebrow mb-2">Projects</p>
+        <h2 class="text-3xl md:text-4xl">Some of what we have built</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {PHOTOS.gallery.slice(0, 9).map((src, i) => (
+          <div class="aspect-square overflow-hidden rounded-xl bg-stone-100">
+            <img src={src} alt={`Sustainable Scapes completed project in Gisborne ${i + 1}`} class="w-full h-full object-cover hover:scale-105 transition-transform" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href={bp('/our-work')} class="btn-outline">See all our work</a>
+      </div>
+    </div>
+  </section>
+
+  <ContactForm sourcePage="about" />
+
+  <FinalCTA />
+</Layout>

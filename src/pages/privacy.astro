@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../lib/site';
+const title = 'Privacy Policy | Sustainable Scapes';
+const description = 'How Sustainable Scapes collects, uses and protects the personal information you share with us through our website and enquiries.';
+const canonical = `${SITE.domain}/privacy`;
+---
+<Layout title={title} description={description} canonical={canonical}>
+  <section class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 prose-style space-y-5">
+      <h1 class="text-4xl font-bold mb-4">Privacy Policy</h1>
+      <p class="text-slate-700 leading-relaxed">Sustainable Scapes respects your privacy. This policy explains what information we collect and how we use it.</p>
+      <h2 class="text-2xl mt-8">What we collect</h2>
+      <p class="text-slate-700 leading-relaxed">When you contact us or request a quote, we collect the details you provide, such as your name, phone number, email and information about your project. If you arrive via an online ad, we may also record basic referral information to understand how you found us.</p>
+      <h2 class="text-2xl mt-8">How we use it</h2>
+      <p class="text-slate-700 leading-relaxed">We use your information only to respond to your enquiry, provide quotes and services, and keep in touch about your project. We do not sell your information to third parties.</p>
+      <h2 class="text-2xl mt-8">Your choices</h2>
+      <p class="text-slate-700 leading-relaxed">You can ask us to update or delete the personal information we hold about you at any time. To do so, contact us at <a href={`mailto:${SITE.email}`} class="text-ss-forest font-semibold">{SITE.email}</a> or call {SITE.phoneDisplay}.</p>
+      <p class="text-slate-500 text-sm mt-8">This is a general policy for our website. For specific questions about your information, get in touch.</p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,17 @@
+---
+// Gentle land-contour divider (grounded, not a beach wave). Optional thin ochre contour line.
+interface Props {
+  fillFrom: string;
+  fillTo: string;
+  line?: boolean;
+}
+const { fillFrom, fillTo, line = false } = Astro.props;
+---
+<div class="relative w-full leading-[0]" style={`background: ${fillFrom};`}>
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" class="block w-full h-[40px] md:h-[70px]" aria-hidden="true">
+    <path d="M0,58 C320,22 640,42 960,32 C1180,25 1320,40 1440,34 L1440,80 L0,80 Z" style={`fill: ${fillTo};`}></path>
+    {line && (
+      <path d="M0,58 C320,22 640,42 960,32 C1180,25 1320,40 1440,34" fill="none" stroke="#C2702C" stroke-width="2" opacity="0.55"></path>
+    )}
+  </svg>
+</div>

@@ -1,0 +1,80 @@
+---
+import { SITE } from '../lib/site';
+interface Props {
+  sourcePage: string;
+  eyebrow?: string;
+  heading?: string;
+  subhead?: string;
+}
+const {
+  sourcePage,
+  eyebrow = 'Request a quote',
+  heading = 'Tell us about your project',
+  subhead = "A few details and we'll come back to you with the next steps, usually within one business day.",
+} = Astro.props;
+
+const services = [
+  'Astroturf installation', 'Paving & concreting', 'Landscape design & construction',
+  'Garden maintenance', 'Dingo works & trenching', 'Planting (native & sub-tropical)',
+  'Section development', 'Site clearing', 'Timber features', 'Irrigation systems',
+  'Not sure yet / need advice',
+];
+---
+<section class="bg-white py-16 md:py-20">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <p class="eyebrow mb-2">{eyebrow}</p>
+      <h2 class="text-3xl md:text-4xl mb-3">{heading}</h2>
+      <p class="text-slate-600">{subhead}</p>
+    </div>
+    <form
+      action="https://services.leadconnectorhq.com/hooks/REPLACE_WITH_GHL_INBOUND_WEBHOOK"
+      method="POST"
+      class="bg-ss-stone rounded-2xl border border-stone-200 p-8 md:p-10 space-y-5"
+    >
+      <input type="hidden" name="source_page" value={sourcePage} />
+      <input type="hidden" name="utm_source" id="utm_source" />
+      <input type="hidden" name="utm_medium" id="utm_medium" />
+      <input type="hidden" name="utm_campaign" id="utm_campaign" />
+      <input type="hidden" name="gclid" id="gclid" />
+      <input type="hidden" name="fbclid" id="fbclid" />
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <label class="block">
+          <span class="text-sm font-bold text-ss-ink mb-1.5 block">Your name</span>
+          <input type="text" name="full_name" required class="w-full px-4 py-3 bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-ss-forest focus:ring-2 focus:ring-ss-forest/20" />
+        </label>
+        <label class="block">
+          <span class="text-sm font-bold text-ss-ink mb-1.5 block">Phone</span>
+          <input type="tel" name="phone" required inputmode="tel" class="w-full px-4 py-3 bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-ss-forest focus:ring-2 focus:ring-ss-forest/20" />
+        </label>
+      </div>
+      <label class="block">
+        <span class="text-sm font-bold text-ss-ink mb-1.5 block">Email</span>
+        <input type="email" name="email" required class="w-full px-4 py-3 bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-ss-forest focus:ring-2 focus:ring-ss-forest/20" />
+      </label>
+      <label class="block">
+        <span class="text-sm font-bold text-ss-ink mb-1.5 block">What do you need?</span>
+        <select name="service" class="w-full px-4 py-3 bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-ss-forest focus:ring-2 focus:ring-ss-forest/20">
+          {services.map((s) => <option value={s}>{s}</option>)}
+        </select>
+      </label>
+      <label class="block">
+        <span class="text-sm font-bold text-ss-ink mb-1.5 block">About your project <span class="font-normal text-slate-400">(optional)</span></span>
+        <textarea name="message" rows="4" placeholder="The space, rough size, and what you're hoping to achieve." class="w-full px-4 py-3 bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-ss-forest focus:ring-2 focus:ring-ss-forest/20"></textarea>
+      </label>
+      <div class="flex flex-col sm:flex-row gap-3 items-center justify-between pt-2">
+        <p class="text-xs text-slate-500">We'll reply within one business day.</p>
+        <button type="submit" class="btn-primary">Request my quote</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  ['utm_source', 'utm_medium', 'utm_campaign', 'gclid', 'fbclid'].forEach((k) => {
+    const el = document.getElementById(k);
+    if (el && params.get(k)) (el as HTMLInputElement).value = params.get(k)!;
+  });
+</script>

@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StrataDivider from '../components/StrataDivider.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import WhyUs from '../components/WhyUs.astro';
+import LocationSection from '../components/LocationSection.astro';
+import { SERVICES } from '../lib/services-data';
+import { SITE, PHOTOS } from '../lib/site';
+import { bp } from '../lib/url';
+
+const title = 'Landscaping Gisborne | Sustainable Scapes';
+const description = 'Sustainable Scapes is a Gisborne landscaping company handling everything from site clearing and paving to planting and maintenance. Built to last.';
+const canonical = `${SITE.domain}/`;
+const keywords = 'landscaping gisborne, landscaper gisborne, landscaping company gisborne, garden design gisborne, site works gisborne';
+
+const services = Object.values(SERVICES);
+const portfolio = PHOTOS.gallery.slice(0, 8);
+---
+
+<Layout title={title} description={description} canonical={canonical} keywords={keywords} primaryKeyword="landscaping gisborne">
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-ss-ink">
+    <div class="absolute inset-0">
+      <img src={PHOTOS.heroFeature} alt="A landscaped Gisborne garden by Sustainable Scapes" class="w-full h-full object-cover" style="object-position: center;" />
+      <div class="absolute inset-0 bg-gradient-to-r from-ss-ink from-20% via-ss-ink/80 via-60% to-ss-ink/30"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-36">
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-4 text-ss-ochre">Residential · Commercial · Development</p>
+        <h1 class="text-4xl md:text-6xl font-bold text-white leading-[1.05] mb-6">Sustainable landscaping &amp; site solutions in Gisborne</h1>
+        <p class="text-xl text-white/90 mb-8 leading-relaxed">From site clearing to finished outdoor spaces, we handle the whole job, built for local ground conditions and made to last.</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href={bp('/contact')} class="btn-primary">Request a quote</a>
+          <a href={bp('/services')} class="inline-flex items-center justify-center px-7 py-3.5 bg-white/10 backdrop-blur text-white font-bold rounded-lg border-2 border-white/30 hover:bg-white/20 transition">View our services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#1C2A16" fillTo="#FFFFFF" line={true} />
+
+  <!-- TRUST STRIP -->
+  <section class="bg-white py-7 border-b border-stone-100">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">Gisborne</p><p class="text-sm text-slate-600 mt-1">Locally based</p></div>
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">End-to-end</p><p class="text-sm text-slate-600 mt-1">One coordinated team</p></div>
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">Sustainable</p><p class="text-sm text-slate-600 mt-1">Low-maintenance results</p></div>
+      <div><p class="text-2xl font-bold text-ss-forest" style="font-family: var(--font-display);">Built to last</p><p class="text-sm text-slate-600 mt-1">Done properly</p></div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <p class="eyebrow mb-2">Landscaping done properly</p>
+      <h2 class="text-3xl md:text-4xl mb-6">Landscaping Gisborne can rely on</h2>
+      <p class="text-lg text-slate-700 leading-relaxed mb-4">Too many outdoor projects are pieced together by a string of trades, with gaps where things fall over. We do it differently. From the first cut of site clearing through to the final plant, Sustainable Scapes handles the whole job as one coordinated team.</p>
+      <p class="text-lg text-slate-700 leading-relaxed">That means fewer delays, no finger-pointing, and an outdoor space that is planned as a whole and built for Gisborne conditions, so it still performs years down the track.</p>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#FFFFFF" fillTo="#F6F4EE" />
+
+  <!-- SERVICES GRID -->
+  <section class="bg-ss-stone py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12 max-w-2xl mx-auto">
+        <p class="eyebrow mb-2">Our services</p>
+        <h2 class="text-3xl md:text-4xl mb-3">Everything for your outdoor space, under one roof</h2>
+        <p class="text-lg text-slate-600">End-to-end landscaping and site solutions across Gisborne, from early site work to the finishing details.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {services.map((s) => (
+          <a href={bp(`/${s.slug}`)} class="group bg-white border border-stone-200 rounded-2xl overflow-hidden hover:border-ss-forest hover:shadow-xl transition-all flex flex-col">
+            <div class="aspect-video overflow-hidden bg-stone-100"><img src={s.heroImage} alt={s.label} class="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" /></div>
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="text-lg mb-2 group-hover:text-ss-forest transition-colors leading-snug">{s.label}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{s.intro.split('. ')[0]}.</p>
+              <span class="text-ss-forest font-bold text-sm">Learn more →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href={bp('/services')} class="btn-outline">See all services</a>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#F6F4EE" fillTo="#FFFFFF" />
+
+  <WhyUs />
+
+  <!-- PORTFOLIO TEASER -->
+  <section class="bg-white pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-10 max-w-2xl mx-auto">
+        <p class="eyebrow mb-2">Our work</p>
+        <h2 class="text-3xl md:text-4xl mb-3">Recent projects around Gisborne</h2>
+        <p class="text-lg text-slate-600">A look at outdoor spaces we have cleared, built, planted and transformed.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {portfolio.map((src, i) => (
+          <div class="aspect-square overflow-hidden rounded-xl bg-stone-100">
+            <img src={src} alt={`Sustainable Scapes landscaping project in Gisborne ${i + 1}`} class="w-full h-full object-cover hover:scale-105 transition-transform" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href={bp('/our-work')} class="btn-outline">See more of our work</a>
+      </div>
+    </div>
+  </section>
+
+  <ContactForm sourcePage="homepage" />
+
+  <FinalCTA />
+
+  <LocationSection />
+</Layout>

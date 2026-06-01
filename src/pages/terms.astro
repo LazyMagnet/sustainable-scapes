@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../lib/site';
+const title = 'Terms of Service | Sustainable Scapes';
+const description = 'The terms that apply to using the Sustainable Scapes website and engaging us for landscaping and site services in Gisborne.';
+const canonical = `${SITE.domain}/terms`;
+---
+<Layout title={title} description={description} canonical={canonical}>
+  <section class="bg-white py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 space-y-5">
+      <h1 class="text-4xl font-bold mb-4">Terms of Service</h1>
+      <p class="text-slate-700 leading-relaxed">These terms apply to your use of the Sustainable Scapes website and to enquiries made through it.</p>
+      <h2 class="text-2xl mt-8">Using this website</h2>
+      <p class="text-slate-700 leading-relaxed">The information on this site is provided in good faith for general guidance. While we keep it accurate and current, it does not form a quote or a contract on its own. Pricing, scope and timing for any work are confirmed in writing before a project begins.</p>
+      <h2 class="text-2xl mt-8">Quotes and work</h2>
+      <p class="text-slate-700 leading-relaxed">Any quote we provide is based on the information available at the time and the scope discussed. Final scope, materials and price are agreed with you directly before work starts.</p>
+      <h2 class="text-2xl mt-8">Contact</h2>
+      <p class="text-slate-700 leading-relaxed">Questions about these terms can be directed to <a href={`mailto:${SITE.email}`} class="text-ss-forest font-semibold">{SITE.email}</a> or {SITE.phoneDisplay}.</p>
+    </div>
+  </section>
+</Layout>

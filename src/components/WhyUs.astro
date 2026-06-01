@@ -1,0 +1,31 @@
+---
+import { PHOTOS } from '../lib/site';
+const points = [
+  { t: 'End-to-end, not piecemeal', d: 'From site clearing and prep through to planting and the finishing details, handled by one team. Fewer handovers, fewer delays, no gaps where things fall over.' },
+  { t: 'Built for Gisborne ground conditions', d: 'Local soil, climate and sites behave their own way. We build for what is actually under your feet, so the result holds up over years, not weeks.' },
+  { t: 'Sustainable, done practically', d: 'Low-maintenance planting and durable construction that works in the real world. Sustainability that saves you upkeep, not a buzzword.' },
+  { t: 'Reliable delivery, clear communication', d: 'You know what is happening and when. We turn up, we do it properly, and we leave you with a space that performs.' },
+];
+---
+<section class="bg-white py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="eyebrow mb-2">Why Sustainable Scapes</p>
+      <h2 class="text-3xl md:text-4xl mb-6">Practical. Reliable. Built for Gisborne.</h2>
+      <dl class="space-y-6">
+        {points.map((p) => (
+          <div class="flex gap-4">
+            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-ss-ochre shrink-0"></span>
+            <div>
+              <dt class="font-bold text-ss-ink text-lg" style="font-family: var(--font-display);">{p.t}</dt>
+              <dd class="text-slate-600 mt-1 leading-relaxed">{p.d}</dd>
+            </div>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <div>
+      <img src={PHOTOS.whyChoose} alt="A completed Sustainable Scapes landscaping project in Gisborne" class="w-full rounded-2xl shadow-xl object-cover aspect-[4/5]" loading="lazy" />
+    </div>
+  </div>
+</section>

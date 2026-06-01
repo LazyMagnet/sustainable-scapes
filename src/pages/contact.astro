@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StrataDivider from '../components/StrataDivider.astro';
+import ContactForm from '../components/ContactForm.astro';
+import LocationSection from '../components/LocationSection.astro';
+import { SITE } from '../lib/site';
+
+const title = 'Contact | Landscaping Gisborne | Sustainable Scapes';
+const description = 'Get in touch with Sustainable Scapes for landscaping and site work in Gisborne. Request a quote, call us, or send a message about your project.';
+const canonical = `${SITE.domain}/contact`;
+---
+
+<Layout title={title} description={description} canonical={canonical} keywords="contact sustainable scapes, landscaping quote gisborne">
+  <section class="relative overflow-hidden bg-ss-ink">
+    <div class="absolute inset-0 opacity-30" style="background: radial-gradient(60% 80% at 30% 0%, #006837 0%, transparent 60%), radial-gradient(50% 70% at 100% 100%, #C2702C 0%, transparent 55%);"></div>
+    <div class="relative max-w-4xl mx-auto px-4 py-16 md:py-20 text-center">
+      <p class="eyebrow mb-4 text-ss-ochre">Get in touch</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-5">Let's talk about your project</h1>
+      <p class="text-lg text-white/85 max-w-2xl mx-auto mb-8">Whether you are planning a new landscape, prepping a site, or improving the space you have, tell us what you need and we will come back to you within one business day.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center text-white">
+        <a href={`tel:${SITE.phoneTel}`} class="inline-flex items-center justify-center px-6 py-3 bg-white text-ss-forest font-bold rounded-lg hover:bg-ss-stone transition">Call {SITE.phoneDisplay}</a>
+        <a href={`mailto:${SITE.email}`} class="inline-flex items-center justify-center px-6 py-3 bg-transparent text-white font-bold rounded-lg border-2 border-white/60 hover:bg-white hover:text-ss-forest transition">Email us</a>
+      </div>
+    </div>
+  </section>
+
+  <StrataDivider fillFrom="#1C2A16" fillTo="#FFFFFF" line={true} />
+
+  <ContactForm sourcePage="contact" eyebrow="Request a quote" heading="Tell us about your project" subhead="A few details about the space and what you are hoping to achieve, and we will be in touch." />
+
+  <LocationSection />
+</Layout>

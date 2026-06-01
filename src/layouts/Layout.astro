@@ -1,0 +1,154 @@
+---
+import '../styles/global.css';
+import { bp } from '../lib/url';
+import { SITE } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  keywords?: string;
+  primaryKeyword?: string;
+  schemaJson?: object | object[];
+}
+
+const { title, description, canonical, keywords, primaryKeyword, schemaJson } = Astro.props;
+
+const nav = [
+  { label: 'Services', href: bp('/services') },
+  { label: 'Our Work', href: bp('/our-work') },
+  { label: 'About', href: bp('/about') },
+  { label: 'Contact', href: bp('/contact') },
+];
+
+const footerServices = [
+  ['Astroturf Installation', '/astroturf-installation-gisborne'],
+  ['Paving & Concreting', '/paving-concreting-gisborne'],
+  ['Landscape Design & Construction', '/landscape-design-construction-gisborne'],
+  ['Garden Maintenance', '/garden-maintenance-gisborne'],
+  ['Dingo Works & Trenching', '/dingo-works-trenching-gisborne'],
+  ['Planting (Native & Sub-tropical)', '/planting-native-subtropical-gisborne'],
+  ['Section Development', '/section-development-gisborne'],
+  ['Site Clearing', '/site-clearing-gisborne'],
+  ['Timber Features', '/timber-features-gisborne'],
+  ['Irrigation Systems', '/irrigation-gisborne'],
+];
+
+// Default org schema on every page. No aggregateRating — reviews are thin; never fabricate.
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': `${SITE.domain}/#business`,
+  name: SITE.name,
+  image: SITE.logo,
+  telephone: SITE.phoneTel,
+  email: SITE.email,
+  address: { '@type': 'PostalAddress', addressLocality: 'Gisborne', addressRegion: 'Gisborne', postalCode: '4010', addressCountry: 'NZ' },
+  areaServed: { '@type': 'AdministrativeArea', name: 'Gisborne District' },
+  url: SITE.domain,
+  priceRange: '$$',
+  sameAs: [SITE.facebook, SITE.instagram],
+};
+---
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    {primaryKeyword && <meta name="primary-keyword" content={primaryKeyword} />}
+    <link rel="canonical" href={canonical} />
+
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={SITE.logo} />
+    <meta property="og:locale" content="en_NZ" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/png" href={SITE.favicon} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700;800&display=swap" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {schemaJson && (
+      <script type="application/ld+json" set:html={JSON.stringify(schemaJson)} />
+    )}
+  </head>
+  <body class="bg-white antialiased">
+    <header class="bg-white/95 backdrop-blur border-b border-stone-200 sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <a href={bp('/')} class="flex items-center gap-2 shrink-0">
+          <img src={SITE.logo} alt="Sustainable Scapes landscaping Gisborne" class="h-10 md:h-12 w-auto" />
+          <span class="sr-only">Sustainable Scapes</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold">
+          {nav.map((n) => (
+            <a href={n.href} class="text-ss-ink hover:text-ss-forest transition-colors">{n.label}</a>
+          ))}
+          <a href={SITE.shop} class="text-ss-ink hover:text-ss-forest transition-colors">Shop</a>
+        </nav>
+        <div class="flex items-center gap-3 shrink-0">
+          <a href={`tel:${SITE.phoneTel}`} class="hidden sm:block text-sm font-bold text-ss-forest hover:text-ss-forest-dark">{SITE.phoneDisplay}</a>
+          <a href={bp('/contact')} class="btn-primary !py-2.5 !px-4 text-sm">Request a quote</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="bg-ss-ink text-stone-300 mt-0">
+      <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-10 text-sm">
+        <div>
+          <img src={SITE.logo} alt="Sustainable Scapes" class="h-12 w-auto mb-4 brightness-0 invert" />
+          <p class="font-semibold text-white mb-2">{SITE.name}</p>
+          <p>{SITE.areaServed}</p>
+          <p class="mt-3"><a href={`tel:${SITE.phoneTel}`} class="hover:text-ss-ochre font-semibold">{SITE.phoneDisplay}</a></p>
+          <p><a href={`mailto:${SITE.email}`} class="hover:text-ss-ochre">{SITE.email}</a></p>
+          <div class="flex gap-4 mt-4">
+            <a href={SITE.facebook} class="hover:text-ss-ochre">Facebook</a>
+            <a href={SITE.instagram} class="hover:text-ss-ochre">Instagram</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold text-white mb-3 uppercase tracking-wide text-xs">Services</p>
+          <ul class="space-y-2">
+            {footerServices.map(([label, href]) => (
+              <li><a href={bp(href)} class="hover:text-ss-ochre">{label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-white mb-3 uppercase tracking-wide text-xs">Company</p>
+          <ul class="space-y-2">
+            <li><a href={bp('/our-work')} class="hover:text-ss-ochre">Our Work</a></li>
+            <li><a href={bp('/about')} class="hover:text-ss-ochre">About</a></li>
+            <li><a href={bp('/contact')} class="hover:text-ss-ochre">Contact</a></li>
+            <li><a href={SITE.shop} class="hover:text-ss-ochre">Plant Shop</a></li>
+            <li><a href={bp('/privacy')} class="hover:text-ss-ochre">Privacy Policy</a></li>
+            <li><a href={bp('/terms')} class="hover:text-ss-ochre">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 text-xs text-stone-400">
+          © {SITE.name}. Landscaping &amp; site solutions in Gisborne.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

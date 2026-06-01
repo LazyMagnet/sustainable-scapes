@@ -1,0 +1,22 @@
+{
+  "_comment": "Declarative test spec. Pillar /services + 10 service spokes (the untapped local long-tail). Each spoke links pillar + siblings + portfolio.",
+  "clusters": [
+    {
+      "pillar": "/services",
+      "spokes": [
+        { "url": "/astroturf-installation-gisborne", "keyword": "astroturf installation gisborne" },
+        { "url": "/paving-concreting-gisborne", "keyword": "paving and concreting gisborne" },
+        { "url": "/landscape-design-construction-gisborne", "keyword": "landscape design gisborne" },
+        { "url": "/garden-maintenance-gisborne", "keyword": "garden maintenance gisborne" },
+        { "url": "/dingo-works-trenching-gisborne", "keyword": "dingo works gisborne" },
+        { "url": "/planting-native-subtropical-gisborne", "keyword": "planting gisborne" },
+        { "url": "/section-development-gisborne", "keyword": "section development gisborne" },
+        { "url": "/site-clearing-gisborne", "keyword": "site clearing gisborne" },
+        { "url": "/timber-features-gisborne", "keyword": "timber features gisborne" },
+        { "url": "/irrigation-gisborne", "keyword": "irrigation gisborne" }
+      ]
+    }
+  ],
+  "utilityPages": ["/about", "/contact", "/privacy", "/terms"],
+  "cro": { "landingPages": ["/contact"] }
+}
